@@ -5,7 +5,6 @@
  */
 
 import React, { Component } from 'react';
-import Video from 'react-native-video';
 
 import {
   Platform,
@@ -13,7 +12,8 @@ import {
   Text,
   View,
   ScrollView, 
-  Dimensions
+  Dimensions,
+  Button,
 } from 'react-native';
 
 const instructions = Platform.select({
@@ -24,34 +24,33 @@ const instructions = Platform.select({
 });
 
 type Props = {};
-export default class App extends Component<Props> {
+export default class Page extends Component<Props> {
+
+  static navigationOptions = {
+    title: 'Home',
+  };
+
   render() {
+    const { navigate } = this.props.navigation;
     const { width } = Dimensions.get('window');
     const height = width*(3/4);
     const videStyle = {width: width, height: height };
+
     return (
       <View style={styles.container}>
 
-       {/* <Text style={styles.welcome}>
+       <Text style={styles.welcome}>
           Welcome to React MyApp!
         </Text>
         <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
           {instructions}
-        </Text> */}
-        {/* <View style={styles.container}> */}
-        <ScrollView>
-          {/* <View style={styles.fakeContent}>
-          </View> */}
-          <Video source={{uri: "http://techslides.com/demos/sample-videos/small.mp4"}}
-               repeat
-               style={videStyle}/>
-          <View style={styles.fakeContent}>
-          </View>
-        </ScrollView>  
-        {/* </View> */}
+        </Text>
+
+        <Button title="Navigate to Video" 
+                onPress={() =>
+                  navigate('Video')
+                }
+        ></Button>
 
       </View>
     );
@@ -87,7 +86,7 @@ const styles = StyleSheet.create({
     // left: 0,
     // bottom: 0,
     // right: 0,
-    width: 300,
+    width: '100%',
     height:200
   },
   fakeContent: {
